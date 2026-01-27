@@ -1,12 +1,12 @@
-# Feature Rule: Book Management
+# 機能別ルール：書籍管理
 
-## Overview
-Covers book registration, listing, and rental status.
+## 概要
+書籍の登録、一覧表示、およびレンタル状況をカバーします。
 
-## Rules
-- **Data Model**: Follow the `Book` model in `schema.prisma`.
-- **Validation**:
-  - ISBN must be validated (10 or 13 digits).
-  - Title and Author are mandatory.
-- **Images**: Use placeholder images if a cover is not available.
-- **Search**: Implement server-side filtering for large book sets.
+## ルール
+- **データモデル**: `schema.prisma` の `Book` モデルに従うこと。
+- **バリデーション**:
+  - ISBN は検証済みであること（10桁または13桁の数字）。
+  - タイトルと著者は必須。
+- **画像**: 表紙が利用できない場合は、プレースホルダー画像を使用すること。
+- **検索**: 大規模なデータセットに対しては、サーバーサイドフィルタリングを実装すること。

@@ -1,13 +1,13 @@
-# Architecture Overview
+# アーキテクチャ概要
 
-Berrow Books App is a book rental service built with Next.js and Prisma.
+Berrow Books App は、Next.js と Prisma で構築された書籍レンタルサービスです。
 
-## Components
-- **Web App**: Located in `web/`, uses Next.js App Router.
-- **Library**: Custom logic for authentication and domain services in `web/src/lib`.
-- **Database**: PostgreSQL managed via Prisma.
+## コンポーネント
+- **Web App**: `web/` フォルダに配置。Next.js App Router を使用。
+- **Library**: `web/src/lib` 内の認証およびドメインサービスのカスタムロジック。
+- **Database**: Prisma で管理される PostgreSQL。
 
-## Flow
-1. User interacts with Next.js components.
-2. Server Actions/API routes handle logic.
-3. Prisma interacts with the database.
+## データフロー
+1. ユーザーが Next.js コンポーネントを操作
+2. Server Actions または API routes がロジックを処理
+3. Prisma がデータベースと通信

@@ -1,11 +1,11 @@
-# Feature Rule: Room Management
+# 機能別ルール：保管場所（Room）管理
 
-## Overview
-Manages physical locations/rooms where books are stored.
+## 概要
+書籍が保管される物理的な場所（部屋）を管理します。
 
-## Rules
-- **Room Identification**: Each room must have a unique name or code.
-- **Inventory Tracking**: 
-  - Ensure book location updates are atomic.
-  - Room capacity checks should be performed before moving books.
-- **UI**: Display room status (Full, Available, Empty) clearly in the management dashboard.
+## ルール
+- **部屋の識別**: 各部屋は一意の名前またはコードを持つこと。
+- **在庫追跡**: 
+  - 書籍の場所更新はアトミックに行われるようにすること。
+  - 書籍を移動する前に、部屋の容量チェックを行うこと。
+- **UI**: 管理ダッシュボードで部屋の状態（満室、利用可能、空室）を明確に表示すること。

@@ -8,10 +8,10 @@
 
 ## 開発コマンド
 
-- ビルド: `npm run build` (in web directory)
-- 開発サーバー: `npm run dev` (in web directory)
-- テスト: `npm test` (in web directory)
-- リンター: `npm run lint` (in web directory)
+- ビルド: `npm run build` (webディレクトリ内)
+- 開発サーバー: `npm run dev` (webディレクトリ内)
+- テスト: `npm test` (webディレクトリ内)
+- リンター: `npm run lint` (webディレクトリ内)
 - プリズマ: `npx prisma generate`, `npx prisma db push`
 
 ## 環境設定

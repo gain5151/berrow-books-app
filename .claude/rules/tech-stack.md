@@ -1,7 +1,7 @@
-# Technology Stack
+# 技術スタック
 
-- **Framework**: Next.js (App Router)
-- **Database**: Prisma with PostgreSQL
+- **フレームワーク**: Next.js (App Router)
+- **データベース**: Prisma と PostgreSQL
 - **UI**: Tailwind CSS
-- **Authentication**: Lucide-React for icons, and custom auth logic in `lib/auth.ts`
-- **Deployment**: Standard Node.js environment
+- **認証**: Lucide-React（アイコン）、および `lib/auth.ts` 内のカスタム認証ロジック
+- **デプロイ**: 標準的な Node.js 環境

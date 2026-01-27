@@ -1,12 +1,12 @@
-# Feature Rule: Authentication
+# 機能別ルール：ユーザー認証
 
-## Overview
-Handles user login, session management, and access control.
+## 概要
+ログイン、セッション管理、およびアクセス制御を処理します。
 
-## Rules
-- **Logic Location**: All authentication logic must reside in `web/src/lib/auth.ts`.
-- **Session Handling**: Use secure cookies for session storage.
-- **Access Control**: 
-  - Protect sensitive routes using Middleware or Server Component checks.
-  - Public routes must be explicitly defined in a whitelist.
-- **Icons**: Use `Lucide-React` for auth-related icons (Lock, User, LogIn, etc.).
+## ルール
+- **ロジックの配置**: すべての認証ロジックは `web/src/lib/auth.ts` に配置すること。
+- **セッション管理**: セッション保存にはセキュアなクッキーを使用すること。
+- **アクセス制御**: 
+  - 機密性の高いルートは Middleware または Server Component でチェックを行い保護すること。
+  - 公開ルートはホワイトリストで明示的に定義すること。
+- **アイコン**: 認証関連のアイコン（Lock, User, LogIn など）には `Lucide-React` を使用すること。

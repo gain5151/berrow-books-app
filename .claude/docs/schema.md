@@ -1,11 +1,11 @@
-# Database Schema
+# データベーススキーマ
 
-The schema is defined in `web/prisma/schema.prisma`.
+スキーマは `web/prisma/schema.prisma` で定義されています。
 
-## Key Entities
-- **User**: Authentication and profile.
-- **Book**: Metadata and availability.
-- **Rental**: Tracking book loans.
-- **Room**: Physical or logical storage locations.
+## 主要なエンティティ
+- **User**: 認証とプロフィール
+- **Book**: メタデータと在庫状況
+- **Rental**: 書籍の貸出追跡
+- **Room**: 物理的または論理的な保管場所
 
-Refer to `web/prisma/schema.prisma` for the latest source of truth.
+最新の情報については `web/prisma/schema.prisma` を参照してください。
