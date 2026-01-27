@@ -2,21 +2,49 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "メールアドレスを入力してください")
+    .email("有効なメールアドレスを入力してください"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [error, setError] = useState("");
+  const [validationError, setValidationError] = useState("");
+
+  const validateForm = (): LoginFormData | null => {
+    const result = loginSchema.safeParse({ email });
+    if (!result.success) {
+      const firstError = result.error.issues[0];
+      setValidationError(firstError.message);
+      return null;
+    }
+    setValidationError("");
+    return result.data;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
+
+    const validatedData = validateForm();
+    if (!validatedData) {
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       const result = await signIn("email", {
-        email,
+        email: validatedData.email,
         redirect: false,
         callbackUrl: "/",
       });
@@ -30,6 +58,13 @@ export default function LoginPage() {
       setError("エラーが発生しました。もう一度お試しください。");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (validationError) {
+      setValidationError("");
     }
   };
 
@@ -59,7 +94,7 @@ export default function LoginPage() {
         <p className="mb-6 text-center text-zinc-600 dark:text-zinc-400">
           メールアドレスでログイン
         </p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -71,15 +106,19 @@ export default function LoginPage() {
               type="email"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               placeholder="you@example.com"
-              required
-              className="w-full rounded-md border border-zinc-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white"
+              className={`w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 dark:bg-zinc-700 dark:text-white ${
+                validationError
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-zinc-300 focus:border-blue-500 focus:ring-blue-500 dark:border-zinc-600"
+              }`}
             />
+            {validationError && (
+              <p className="mt-1 text-sm text-red-500">{validationError}</p>
+            )}
           </div>
-          {error && (
-            <p className="mb-4 text-sm text-red-500">{error}</p>
-          )}
+          {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
           <button
             type="submit"
             disabled={isLoading}
