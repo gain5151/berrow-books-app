@@ -30,9 +30,10 @@ resource "aws_amplify_app" "this" {
   platform = "WEB_COMPUTE"
 
   environment_variables = {
-    NEXTAUTH_URL    = "https://main.${var.app_name}.amplifyapp.com" # 仮のURL、ブランチ名に依存
-    NEXTAUTH_SECRET = var.nextauth_secret
-    RESEND_API_KEY  = var.resend_api_key
+    NEXTAUTH_URL           = "https://main.${var.app_name}.amplifyapp.com"
+    NEXTAUTH_SECRET        = var.nextauth_secret
+    RESEND_API_KEY         = var.resend_api_key
+    NEXTAUTH_EMAIL_OWNER   = var.nextauth_email_owner
     # DATABASE_URL は別途設定が必要（構築後に設定）
   }
 

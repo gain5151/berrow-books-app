@@ -1,7 +1,6 @@
 variable "aws_region" {
   description = "AWS Region"
   type        = "string"
-  default     = "ap-southeast-1"
 }
 
 variable "app_name" {
@@ -31,4 +30,9 @@ variable "resend_api_key" {
   description = "Resend API Key"
   type        = "string"
   sensitive   = true
+}
+
+variable "nextauth_email_owner" {
+  description = "Allowed owner email for NextAuth"
+  type        = "string"
 }
