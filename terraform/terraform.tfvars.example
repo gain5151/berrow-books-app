@@ -11,3 +11,11 @@ github_access_token = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"
 nextauth_secret      = "YOUR_NEXTAUTH_SECRET"
 resend_api_key       = "YOUR_RESEND_API_KEY"
 nextauth_email_owner = "your-email@example.com"
+
+# Database Connection Info (Optional for now)
+# db_host     = "your-db-host"
+# db_port     = "1234"
+# db_name     = "your-db-name"
+# db_user     = "your-db-user"
+# db_password = "your-db-password"
+# db_schema   = "your-schema"

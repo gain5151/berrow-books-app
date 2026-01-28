@@ -36,3 +36,41 @@ variable "nextauth_email_owner" {
   description = "Allowed owner email for NextAuth"
   type        = "string"
 }
+
+# Database Configuration (for future RDS or external DB)
+variable "db_host" {
+  description = "Database Host"
+  type        = "string"
+  default     = ""
+}
+
+variable "db_port" {
+  description = "Database Port"
+  type        = "string"
+  default     = "1234"
+}
+
+variable "db_name" {
+  description = "Database Name"
+  type        = "string"
+  default     = ""
+}
+
+variable "db_user" {
+  description = "Database User"
+  type        = "string"
+  default     = ""
+}
+
+variable "db_password" {
+  description = "Database Password"
+  type        = "string"
+  sensitive   = true
+  default     = ""
+}
+
+variable "db_schema" {
+  description = "Database Schema"
+  type        = "string"
+  default     = "your-schema"
+}
