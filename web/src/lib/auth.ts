@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
       sendVerificationRequest: async ({ identifier: email, url }) => {
         try {
           console.log(`★★★/lib/auth.ts★★★`, email, url)
-          if (email === "" || email !== "gain5151@yahoo.co.jp") {
+          if (email === "" || email !== process.env.NEXTAUTH_EMAIL_OWNER) {
             console.log(`★★★/lib/auth.ts★★★`, email, url)
             throw new Error("Invalid email. We only support gain5151@yahoo.co.jp");
           }
