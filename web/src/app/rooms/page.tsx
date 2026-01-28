@@ -176,14 +176,22 @@ export default function RoomsPage() {
                       {isExpired(room.tokenExpiresAt) && " (期限切れ)"}
                     </p>
                   </div>
-                  {room.ownerId === session.user.id && (
-                    <button
-                      onClick={() => setSelectedRoom(room)}
-                      className="rounded-md bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-700"
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/rooms/${room.id}/dashboard`}
+                      className="rounded-md bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
                     >
-                      管理者を追加
-                    </button>
-                  )}
+                      ダッシュボード
+                    </Link>
+                    {room.ownerId === session.user.id && (
+                      <button
+                        onClick={() => setSelectedRoom(room)}
+                        className="rounded-md bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-700"
+                      >
+                        管理者を追加
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {room.admins.length > 0 && (
