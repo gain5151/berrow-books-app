@@ -30,7 +30,7 @@ resource "aws_amplify_app" "this" {
   platform = "WEB_COMPUTE"
 
   environment_variables = {
-    NEXTAUTH_URL           = "https://main.${var.app_name}.amplifyapp.com"
+    NEXTAUTH_URL           = "https://app.${var.app_name}.amplifyapp.com"
     NEXTAUTH_SECRET        = var.nextauth_secret
     RESEND_API_KEY         = var.resend_api_key
     NEXTAUTH_EMAIL_OWNER   = var.nextauth_email_owner
@@ -46,7 +46,7 @@ resource "aws_amplify_app" "this" {
 
 resource "aws_amplify_branch" "main" {
   app_id      = aws_amplify_app.this.id
-  branch_name = "release"
+  branch_name = "app"
 
   framework = "Next.js - SSR"
   
