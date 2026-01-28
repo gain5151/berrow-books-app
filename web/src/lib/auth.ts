@@ -13,6 +13,11 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM || "noreply@example.com",
       sendVerificationRequest: async ({ identifier: email, url }) => {
         try {
+          console.log(`★★★/lib/auth.ts★★★`, email, url)
+          if (email === "" || email !== "gain5151@yahoo.co.jp") {
+            console.log(`★★★/lib/auth.ts★★★`, email, url)
+            throw new Error("Invalid email. We only support gain5151@yahoo.co.jp");
+          }
           await resend.emails.send({
             from: process.env.EMAIL_FROM || "noreply@example.com",
             to: email,

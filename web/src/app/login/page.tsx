@@ -108,11 +108,10 @@ export default function LoginPage() {
               value={email}
               onChange={handleEmailChange}
               placeholder="you@example.com"
-              className={`w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 dark:bg-zinc-700 dark:text-white ${
-                validationError
+              className={`w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 dark:bg-zinc-700 dark:text-white ${validationError
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500"
                   : "border-zinc-300 focus:border-blue-500 focus:ring-blue-500 dark:border-zinc-600"
-              }`}
+                }`}
             />
             {validationError && (
               <p className="mt-1 text-sm text-red-500">{validationError}</p>

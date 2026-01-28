@@ -6,7 +6,8 @@
       "Bash(git commit:*)",
       "Bash(npx create-next-app@latest:*)",
       "Bash(npm install:*)",
-      "Bash(npx prisma init)"
+      "Bash(npx prisma init)",
+      "Bash(npm run build:*)"
     ]
   }
 }
