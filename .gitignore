@@ -45,3 +45,6 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# claude code
+.claude/settings.local.json
