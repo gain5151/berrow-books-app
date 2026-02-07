@@ -41,7 +41,7 @@ export function RoomCard({
                 <div className="flex gap-2">
                     <BBAppLink
                         href={`/rooms/${room.id}/dashboard`}
-                        className="bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
+                    //className="bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
                     >
                         ダッシュボード
                     </BBAppLink>
