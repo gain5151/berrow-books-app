@@ -1,4 +1,5 @@
 import { type Room } from "../_consts";
+import { BBAppButton } from "@/components/ui";
 
 type AdminModalProps = {
     selectedRoom: Room;
@@ -37,20 +38,19 @@ export function AdminModal({
                         <p className="mb-4 text-sm text-red-500">{adminError}</p>
                     )}
                     <div className="flex justify-end gap-2">
-                        <button
+                        <BBAppButton
                             type="button"
+                            variant="secondary"
                             onClick={onClose}
-                            className="rounded-md bg-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200"
                         >
                             キャンセル
-                        </button>
-                        <button
+                        </BBAppButton>
+                        <BBAppButton
                             type="submit"
-                            disabled={addingAdmin}
-                            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                            isLoading={addingAdmin}
                         >
                             {addingAdmin ? "追加中..." : "追加"}
-                        </button>
+                        </BBAppButton>
                     </div>
                 </form>
             </div>

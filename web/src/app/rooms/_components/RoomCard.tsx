@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { type Room, isTokenExpired } from "../_consts";
+import { BBAppButton } from "@/components/ui";
 
 type RoomCardProps = {
     room: Room;
@@ -46,12 +47,14 @@ export function RoomCard({
                         ダッシュボード
                     </Link>
                     {room.ownerId === currentUserId && (
-                        <button
+                        <BBAppButton
+                            size="sm"
+                            variant="secondary"
                             onClick={() => onAddAdmin(room)}
-                            className="rounded-md bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-700"
+                            className="bg-green-600 text-white hover:bg-green-700"
                         >
                             管理者を追加
-                        </button>
+                        </BBAppButton>
                     )}
                 </div>
             </div>
@@ -69,12 +72,14 @@ export function RoomCard({
                             >
                                 {admin.user.email}
                                 {room.ownerId === currentUserId && (
-                                    <button
+                                    <BBAppButton
+                                        variant="ghost"
+                                        size="sm"
                                         onClick={() => onRemoveAdmin(room.id, admin.id)}
-                                        className="text-red-500 hover:text-red-700"
+                                        className="p-0 text-red-500 hover:bg-transparent hover:text-red-700"
                                     >
                                         ×
-                                    </button>
+                                    </BBAppButton>
                                 )}
                             </span>
                         ))}
