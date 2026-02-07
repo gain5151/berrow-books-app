@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { type Room, isTokenExpired } from "../_consts";
-import { BBAppButton } from "@/components/ui";
+import { BBAppButton, BBAppLink } from "@/components/ui";
 
 type RoomCardProps = {
     room: Room;
@@ -40,18 +39,18 @@ export function RoomCard({
                     </p>
                 </div>
                 <div className="flex gap-2">
-                    <Link
+                    <BBAppLink
                         href={`/rooms/${room.id}/dashboard`}
-                        className="rounded-md bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
+                        className="bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
                     >
                         ダッシュボード
-                    </Link>
+                    </BBAppLink>
                     {room.ownerId === currentUserId && (
                         <BBAppButton
                             size="sm"
-                            variant="secondary"
+                            variant="ghost"
                             onClick={() => onAddAdmin(room)}
-                            className="bg-green-600 text-white hover:bg-green-700"
+                        //className="bg-green-600 text-white hover:bg-green-700"
                         >
                             管理者を追加
                         </BBAppButton>
