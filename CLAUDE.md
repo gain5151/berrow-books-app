@@ -18,3 +18,23 @@
 
 - アプリ: localhost:3030
 - データベース: PostgreSQL（ポート13030）
+
+
+## Skills
+- path: @\.claude\skills
+- Skillsの目的: ClaudeCodeが能動的に使用するスキルを定義する
+
+## Rules
+- path: @\.claude\rules
+- Rulesの目的: ClaudeCodeが遵守するルールを定義する
+
+## Docs
+- path: @\.claude\docs
+- Docsの目的: このサービスの要件・目的・機能を説明する
+
+## Commands
+- path: @\.claude\commands
+- Commandsの目的: 私（開発者）がコマンドを指定して、ClaudeCodeが指示に沿って実行すべきコマンドを定義する
+
+
+
