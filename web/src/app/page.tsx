@@ -3,7 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Link from "next/link";
+import { BBAppLink } from "@/components/ui/BBAppLink";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -37,12 +37,12 @@ export default function Home() {
           ようこそ、{session.user?.email} さん
         </p>
         <div className="space-y-3">
-          <Link
+          <BBAppLink
             href="/rooms"
             className="block w-full rounded-md bg-blue-600 px-4 py-2 text-center font-medium text-white transition-colors hover:bg-blue-700"
           >
             ルーム管理
-          </Link>
+          </BBAppLink>
           <button
             onClick={() => signOut({ callbackUrl: "/login" })}
             className="w-full rounded-md bg-red-600 px-4 py-2 font-medium text-white transition-colors hover:bg-red-700"

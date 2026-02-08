@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { BBAppLink } from "@/components/ui/BBAppLink";
 import { type Room } from "../_consts";
 
 type DashboardHeaderProps = {
@@ -11,12 +11,12 @@ export function DashboardHeader({ room, roomId, onCopyToken }: DashboardHeaderPr
     return (
         <div className="mb-8 flex items-center justify-between">
             <div>
-                <Link
+                <BBAppLink
                     href="/rooms"
                     className="text-blue-600 hover:underline dark:text-blue-400"
                 >
                     ← ルーム一覧へ戻る
-                </Link>
+                </BBAppLink>
                 <h1 className="mt-2 text-2xl font-bold text-zinc-900 dark:text-white">
                     {room?.name || "ダッシュボード"}
                 </h1>

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { Input } from "@/components/ui";
+import { BBAppLink } from "@/components/ui/BBAppLink";
+import { Input } from "@/components/ui/Input";
 import { UseFormReturn } from "react-hook-form";
 import { type RequestFormData } from "../_consts";
 
@@ -21,12 +21,12 @@ export function RequestForm({
     return (
         <div className="mx-auto max-w-md">
             <div className="mb-8">
-                <Link
+                <BBAppLink
                     href="/"
                     className="text-blue-600 hover:underline dark:text-blue-400"
                 >
                     ← ホームへ戻る
-                </Link>
+                </BBAppLink>
             </div>
 
             <div className="rounded-lg bg-white p-8 shadow dark:bg-zinc-800">

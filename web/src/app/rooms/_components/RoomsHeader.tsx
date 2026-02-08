@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { BBAppLink } from "@/components/ui/BBAppLink";
 
 export function RoomsHeader() {
     return (
@@ -7,18 +7,18 @@ export function RoomsHeader() {
                 ルーム管理
             </h1>
             <div className="flex gap-4">
-                <Link
+                <BBAppLink
                     href="/"
                     className="rounded-md bg-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-600"
                 >
                     ホームへ
-                </Link>
-                <Link
+                </BBAppLink>
+                <BBAppLink
                     href="/rooms/new"
                     className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
                 >
                     新規ルーム作成
-                </Link>
+                </BBAppLink>
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import Link from "next/link";
+import { BBAppLink } from "@/components/ui/BBAppLink";
 
 const createRoomSchema = z.object({
   name: z
@@ -95,12 +95,12 @@ export default function NewRoomPage() {
     <div className="min-h-screen bg-zinc-50 p-8 dark:bg-zinc-900">
       <div className="mx-auto max-w-md">
         <div className="mb-8">
-          <Link
+          <BBAppLink
             href="/rooms"
             className="text-blue-600 hover:underline dark:text-blue-400"
           >
             ← ルーム一覧へ戻る
-          </Link>
+          </BBAppLink>
         </div>
 
         <div className="rounded-lg bg-white p-8 shadow dark:bg-zinc-800">

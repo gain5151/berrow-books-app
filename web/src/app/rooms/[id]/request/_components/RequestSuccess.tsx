@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { BBAppLink } from "@/components/ui/BBAppLink";
 
 export function RequestSuccess() {
     return (
@@ -10,12 +10,12 @@ export function RequestSuccess() {
                 <p className="mb-6 text-center text-zinc-600 dark:text-zinc-400">
                     書籍の申請が完了しました。担当者からの連絡をお待ちください。
                 </p>
-                <Link
+                <BBAppLink
                     href="/"
                     className="block w-full rounded-md bg-blue-600 px-4 py-2 text-center font-medium text-white hover:bg-blue-700"
                 >
                     ホームへ戻る
-                </Link>
+                </BBAppLink>
             </div>
         </div>
     );
