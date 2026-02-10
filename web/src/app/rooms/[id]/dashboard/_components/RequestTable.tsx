@@ -1,4 +1,5 @@
 import { type BookRequest, STATUS_LABELS, STATUS_COLORS, BookRequestStatus } from "../_consts";
+import { BBAppButton } from "@/components/ui";
 
 type RequestTableProps = {
     requests: BookRequest[];
@@ -107,12 +108,13 @@ export function RequestTable({
                                             </>
                                         )}
                                         {req.status === BookRequestStatus.SENT && req.returnDueDate && (
-                                            <button
+                                            <BBAppButton
+                                                size="sm"
                                                 onClick={() => onSendReminder(req.id)}
-                                                className="rounded bg-orange-600 px-3 py-1 text-white hover:bg-orange-700"
+                                                className="bg-orange-600 hover:bg-orange-700 focus:ring-orange-500"
                                             >
                                                 催促
-                                            </button>
+                                            </BBAppButton>
                                         )}
                                     </div>
                                 </td>

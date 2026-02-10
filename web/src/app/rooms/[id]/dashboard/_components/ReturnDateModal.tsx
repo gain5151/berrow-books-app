@@ -1,45 +1,67 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { returnDateSchema, type ReturnDateFormData } from "../_consts";
+import { BBAppButton } from "@/components/ui";
+import { BBAppInput } from "@/components/ui";
+
 type ReturnDateModalProps = {
-    returnDueDate: string;
-    onDateChange: (date: string) => void;
     onCancel: () => void;
-    onConfirm: () => void;
+    onConfirm: (returnDueDate: string) => void;
     isUpdating: boolean;
 };
 
 export function ReturnDateModal({
-    returnDueDate,
-    onDateChange,
     onCancel,
     onConfirm,
     isUpdating,
 }: ReturnDateModalProps) {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ReturnDateFormData>({
+        resolver: zodResolver(returnDateSchema),
+        defaultValues: { returnDueDate: "" },
+    });
+
+    const handleFormSubmit = (data: ReturnDateFormData) => {
+        onConfirm(data.returnDueDate);
+    };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div className="w-full max-w-md rounded-lg bg-white p-6 dark:bg-zinc-800">
                 <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-white">
                     返却期限を設定
                 </h3>
-                <input
-                    type="date"
-                    value={returnDueDate}
-                    onChange={(e) => onDateChange(e.target.value)}
-                    className="mb-4 w-full rounded-md border border-zinc-300 px-4 py-2 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white"
-                />
-                <div className="flex justify-end gap-2">
-                    <button
-                        onClick={onCancel}
-                        className="rounded-md bg-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200"
-                    >
-                        キャンセル
-                    </button>
-                    <button
-                        onClick={onConfirm}
-                        disabled={!returnDueDate || isUpdating}
-                        className="rounded-md bg-purple-600 px-4 py-2 text-white hover:bg-purple-700 disabled:opacity-50"
-                    >
-                        送付済にする
-                    </button>
-                </div>
+                <form onSubmit={handleSubmit(handleFormSubmit)}>
+                    <div className="mb-4">
+                        <BBAppInput<ReturnDateFormData>
+                            name="returnDueDate"
+                            register={register}
+                            error={errors.returnDueDate}
+                            type="date"
+                        />
+                    </div>
+                    <div className="flex justify-end gap-2">
+                        <BBAppButton
+                            type="button"
+                            variant="secondary"
+                            onClick={onCancel}
+                        >
+                            キャンセル
+                        </BBAppButton>
+                        <BBAppButton
+                            type="submit"
+                            isLoading={isUpdating}
+                            className="bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 disabled:bg-purple-300"
+                        >
+                            送付済にする
+                        </BBAppButton>
+                    </div>
+                </form>
             </div>
         </div>
     );

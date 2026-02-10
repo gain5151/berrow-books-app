@@ -11,6 +11,7 @@ const addAdminSchema = z.object({
     .email("有効なメールアドレスを入力してください"),
 });
 
+/** 指定ルームの管理者一覧を取得する */
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ roomId: string }> }
@@ -42,6 +43,7 @@ export async function GET(
   return NextResponse.json(room.admins);
 }
 
+/** 指定ルームに管理者を追加する */
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ roomId: string }> }
@@ -127,6 +129,7 @@ export async function POST(
   return NextResponse.json(admin, { status: 201 });
 }
 
+/** 指定ルームから管理者を削除する */
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ roomId: string }> }

@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const BookRequestStatus = {
     REQUESTED: "REQUESTED",
     PURCHASED: "PURCHASED",
@@ -38,3 +40,11 @@ export const STATUS_COLORS: Record<BookRequestStatusType, string> = {
     [BookRequestStatus.SENT]: "bg-purple-100 text-purple-800",
     [BookRequestStatus.RETURNED]: "bg-green-100 text-green-800",
 };
+
+export const returnDateSchema = z.object({
+    returnDueDate: z
+        .string()
+        .min(1, "返却期限を設定してください"),
+});
+
+export type ReturnDateFormData = z.infer<typeof returnDateSchema>;

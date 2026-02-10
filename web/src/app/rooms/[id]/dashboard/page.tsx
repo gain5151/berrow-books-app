@@ -26,7 +26,6 @@ export default function DashboardPage() {
     copyToken,
   } = useDashboardData(roomId, session, status);
 
-  const [returnDueDate, setReturnDueDate] = useState("");
   const [showDateModal, setShowDateModal] = useState<string | null>(null);
 
   const handleUpdateStatus = async (requestId: string, nextStatus: any) => {
@@ -36,12 +35,11 @@ export default function DashboardPage() {
     }
   };
 
-  const handleConfirmSent = async () => {
+  const handleConfirmSent = async (returnDueDate: string) => {
     if (!showDateModal) return;
     const result = await updateStatus(showDateModal, BookRequestStatus.SENT, returnDueDate);
     if (result.success) {
       setShowDateModal(null);
-      setReturnDueDate("");
     } else if (result.error) {
       alert(result.error);
     }
@@ -78,12 +76,7 @@ export default function DashboardPage() {
 
         {showDateModal && (
           <ReturnDateModal
-            returnDueDate={returnDueDate}
-            onDateChange={setReturnDueDate}
-            onCancel={() => {
-              setShowDateModal(null);
-              setReturnDueDate("");
-            }}
+            onCancel={() => setShowDateModal(null)}
             onConfirm={handleConfirmSent}
             isUpdating={updatingId === showDateModal}
           />

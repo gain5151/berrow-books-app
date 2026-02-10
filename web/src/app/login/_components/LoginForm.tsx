@@ -1,22 +1,31 @@
 "use client";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, type LoginFormData } from "../_consts";
+import { BBAppInput } from "@/components/ui";
+import { BBAppButton } from "@/components/ui";
+
 type LoginFormProps = {
-    email: string;
     isLoading: boolean;
-    validationError: string;
     error: string;
-    onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onSubmit: (e: React.FormEvent) => void;
+    onSubmit: (data: LoginFormData) => void;
 };
 
 export function LoginForm({
-    email,
     isLoading,
-    validationError,
     error,
-    onEmailChange,
     onSubmit,
 }: LoginFormProps) {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(loginSchema),
+        defaultValues: { email: "" },
+    });
+
     return (
         <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900">
             <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md dark:bg-zinc-800">
@@ -26,7 +35,7 @@ export function LoginForm({
                 <p className="mb-6 text-center text-zinc-600 dark:text-zinc-400">
                     メールアドレスでログイン
                 </p>
-                <form onSubmit={onSubmit} noValidate>
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div className="mb-4">
                         <label
                             htmlFor="email"
@@ -34,29 +43,23 @@ export function LoginForm({
                         >
                             メールアドレス
                         </label>
-                        <input
+                        <BBAppInput<LoginFormData>
+                            name="email"
+                            register={register}
+                            error={errors.email}
                             type="email"
                             id="email"
-                            value={email}
-                            onChange={onEmailChange}
                             placeholder="you@example.com"
-                            className={`w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 dark:bg-zinc-700 dark:text-white ${validationError
-                                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                                    : "border-zinc-300 focus:border-blue-500 focus:ring-blue-500 dark:border-zinc-600"
-                                }`}
                         />
-                        {validationError && (
-                            <p className="mt-1 text-sm text-red-500">{validationError}</p>
-                        )}
                     </div>
                     {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
-                    <button
+                    <BBAppButton
                         type="submit"
-                        disabled={isLoading}
-                        className="w-full rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+                        isLoading={isLoading}
+                        className="w-full"
                     >
                         {isLoading ? "送信中..." : "ログインリンクを送信"}
-                    </button>
+                    </BBAppButton>
                 </form>
             </div>
         </div>
