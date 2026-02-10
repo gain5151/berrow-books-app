@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { createRoomSchema, type CreateRoomFormData } from "../_consts";
+import { createRoomSchema, DEFAULT_TOKEN_EXPIRY_DAYS, type CreateRoomFormData } from "../_consts";
 
 export function useCreateRoomForm() {
   const router = useRouter();
@@ -19,10 +19,9 @@ export function useCreateRoomForm() {
     },
   });
 
-  // Set default expiry to 30 days from now
   useEffect(() => {
     const defaultDate = new Date();
-    defaultDate.setDate(defaultDate.getDate() + 30);
+    defaultDate.setDate(defaultDate.getDate() + DEFAULT_TOKEN_EXPIRY_DAYS);
     form.setValue("tokenExpiresAt", defaultDate.toISOString().slice(0, 16));
   }, [form]);
 

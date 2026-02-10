@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const DEFAULT_TOKEN_EXPIRY_DAYS = 90;
+
 export const createRoomSchema = z.object({
   name: z
     .string()
