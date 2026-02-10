@@ -10,7 +10,6 @@ export function useRoomsData(session: any, status: string) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
     const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
-    const [adminEmail, setAdminEmail] = useState("");
     const [addingAdmin, setAddingAdmin] = useState(false);
     const [adminError, setAdminError] = useState("");
 
@@ -42,9 +41,8 @@ export function useRoomsData(session: any, status: string) {
         }
     }, [session, fetchRooms]);
 
-    const handleAddAdmin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!selectedRoom) return;
+    const handleAddAdmin = async (email: string) => {
+        if (!selectedRoom) return { success: false, error: "ルームが選択されていません" };
 
         setAddingAdmin(true);
         setAdminError("");
@@ -53,11 +51,10 @@ export function useRoomsData(session: any, status: string) {
             const res = await fetch(`/api/rooms/${selectedRoom.id}/admins`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: adminEmail }),
+                body: JSON.stringify({ email }),
             });
 
             if (res.ok) {
-                setAdminEmail("");
                 setSelectedRoom(null);
                 await fetchRooms();
                 return { success: true };
@@ -100,8 +97,6 @@ export function useRoomsData(session: any, status: string) {
         error,
         selectedRoom,
         setSelectedRoom,
-        adminEmail,
-        setAdminEmail,
         addingAdmin,
         adminError,
         setAdminError,

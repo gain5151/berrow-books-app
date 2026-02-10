@@ -12,6 +12,8 @@ function cn(...inputs: ClassValue[]) {
 export interface BBAppLinkProps extends LinkProps {
   className?: string;
   children: ReactNode;
+  target?: string;
+  rel?: string;
 }
 
 export const BBAppLink = ({

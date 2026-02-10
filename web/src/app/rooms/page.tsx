@@ -16,8 +16,6 @@ export default function RoomsPage() {
     error,
     selectedRoom,
     setSelectedRoom,
-    adminEmail,
-    setAdminEmail,
     addingAdmin,
     adminError,
     setAdminError,
@@ -57,11 +55,8 @@ export default function RoomsPage() {
         {selectedRoom && (
           <AdminModal
             selectedRoom={selectedRoom}
-            adminEmail={adminEmail}
-            onAdminEmailChange={setAdminEmail}
             onClose={() => {
               setSelectedRoom(null);
-              setAdminEmail("");
               setAdminError("");
             }}
             onSubmit={handleAddAdmin}

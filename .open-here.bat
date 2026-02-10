@@ -1,0 +1,1 @@
+start "" "C:\Users\gain5\AppData\Local\Programs\Antigravity\Antigravity.exe" "%~dp0"

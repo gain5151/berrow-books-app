@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="ER Diagram - Berrow Books App" id="er-diagram-berrow-books">
-        <mxGraphModel dx="1013" dy="456" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1073" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -20,7 +20,7 @@
                     <mxGeometry y="104" width="180" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="room-header" value="Room" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="360" y="200" width="180" height="182" as="geometry"/>
+                    <mxGeometry x="380" y="40" width="180" height="182" as="geometry"/>
                 </mxCell>
                 <mxCell id="room-pk" value="id: String [PK]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1" parent="room-header" vertex="1">
                     <mxGeometry y="26" width="180" height="26" as="geometry"/>
@@ -41,7 +41,7 @@
                     <mxGeometry y="156" width="180" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="roomadmin-header" value="RoomAdmin" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="220" y="440" width="180" height="104" as="geometry"/>
+                    <mxGeometry x="240" y="660" width="180" height="104" as="geometry"/>
                 </mxCell>
                 <mxCell id="roomadmin-pk" value="id: String [PK]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1" parent="roomadmin-header" vertex="1">
                     <mxGeometry y="26" width="180" height="26" as="geometry"/>
@@ -98,7 +98,7 @@
                     <mxGeometry y="104" width="120" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="account-header" value="Account" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="440" width="120" height="200" as="geometry"/>
+                    <mxGeometry x="190" y="414" width="120" height="186" as="geometry"/>
                 </mxCell>
                 <mxCell id="account-pk" value="id: String [PK]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1" parent="account-header" vertex="1">
                     <mxGeometry y="26" width="120" height="20" as="geometry"/>
@@ -125,7 +125,7 @@
                     <mxGeometry y="166" width="120" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="session-header" value="Session" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="680" width="160" height="104" as="geometry"/>
+                    <mxGeometry x="10" y="420" width="160" height="104" as="geometry"/>
                 </mxCell>
                 <mxCell id="session-pk" value="id: String [PK]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1" parent="session-header" vertex="1">
                     <mxGeometry y="26" width="160" height="26" as="geometry"/>
@@ -137,7 +137,7 @@
                     <mxGeometry y="78" width="160" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="verificationtoken-header" value="VerificationToken" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-                    <mxGeometry x="280" y="680" width="160" height="104" as="geometry"/>
+                    <mxGeometry x="450" y="680" width="160" height="104" as="geometry"/>
                 </mxCell>
                 <mxCell id="verificationtoken-identifier" value="identifier: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="verificationtoken-header" vertex="1">
                     <mxGeometry y="26" width="160" height="26" as="geometry"/>

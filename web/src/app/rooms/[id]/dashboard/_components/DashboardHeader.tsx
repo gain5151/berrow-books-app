@@ -23,9 +23,14 @@ export function DashboardHeader({ room, roomId, onCopyToken }: DashboardHeaderPr
             </div>
             {room && (
                 <div className="text-right">
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                        申請URL: /rooms/{roomId}/request
-                    </p>
+                    <BBAppLink
+                        href={`/rooms/${roomId}/request`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-blue-600 hover:underline dark:text-blue-400"
+                    >
+                        申請ページを開く
+                    </BBAppLink>
                     <button
                         onClick={onCopyToken}
                         className="mt-1 rounded bg-zinc-200 px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300"
