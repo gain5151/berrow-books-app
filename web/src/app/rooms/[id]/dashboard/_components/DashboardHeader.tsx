@@ -1,4 +1,5 @@
 import { BBAppLink } from "@/components/ui/BBAppLink";
+import { BBAppButton } from "@/components/ui";
 import { type Room } from "../_consts";
 
 type DashboardHeaderProps = {
@@ -31,12 +32,14 @@ export function DashboardHeader({ room, roomId, onCopyToken }: DashboardHeaderPr
                     >
                         申請ページを開く
                     </BBAppLink>
-                    <button
+                    <BBAppButton
+                        variant="secondary"
+                        size="sm"
                         onClick={onCopyToken}
-                        className="mt-1 rounded bg-zinc-200 px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300"
+                        className="mt-1"
                     >
                         トークンをコピー
-                    </button>
+                    </BBAppButton>
                 </div>
             )}
         </div>

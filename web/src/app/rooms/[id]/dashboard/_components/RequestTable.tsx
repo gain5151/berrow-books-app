@@ -89,21 +89,22 @@ export function RequestTable({
                                         {nextStatus && (
                                             <>
                                                 {nextStatus === BookRequestStatus.SENT ? (
-                                                    <button
+                                                    <BBAppButton
+                                                        size="sm"
                                                         onClick={() => onShowDateModal(req.id)}
                                                         disabled={updatingId === req.id}
-                                                        className="rounded bg-purple-600 px-3 py-1 text-white hover:bg-purple-700 disabled:opacity-50"
+                                                        className="bg-purple-600 hover:bg-purple-700 focus:ring-purple-500"
                                                     >
                                                         送付済にする
-                                                    </button>
+                                                    </BBAppButton>
                                                 ) : (
-                                                    <button
+                                                    <BBAppButton
+                                                        size="sm"
                                                         onClick={() => onUpdateStatus(req.id, nextStatus)}
                                                         disabled={updatingId === req.id}
-                                                        className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700 disabled:opacity-50"
                                                     >
                                                         {STATUS_LABELS[nextStatus]}にする
-                                                    </button>
+                                                    </BBAppButton>
                                                 )}
                                             </>
                                         )}
