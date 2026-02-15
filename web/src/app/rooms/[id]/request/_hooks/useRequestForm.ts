@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { catchTrouble } from "@/lib/wrappClient/CatchTrouble";
 import { requestSchema, type RequestFormData } from "../_consts";
+import { createRequest } from "../_actions/create-request";
 
 export function useRequestForm(roomId: string) {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,28 +16,31 @@ export function useRequestForm(roomId: string) {
         resolver: zodResolver(requestSchema),
     });
 
-    const onSubmit = async (data: RequestFormData) => {
+    const _executeCreateRequest = async (data: RequestFormData) => {
+        return await catchTrouble(async () => {
+            return await createRequest(roomId, data);
+        });
+    };
+
+    const handleSubmit = async (data: RequestFormData) => {
         setIsSubmitting(true);
         setSubmitError("");
 
-        try {
-            const res = await fetch(`/api/rooms/${roomId}/requests`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
+        const result = await _executeCreateRequest(data);
 
-            if (res.ok) {
-                setIsSuccess(true);
-            } else {
-                const result = await res.json();
-                setSubmitError(result.error || "申請に失敗しました");
-            }
-        } catch {
+        if (!result) {
             setSubmitError("エラーが発生しました");
-        } finally {
             setIsSubmitting(false);
+            return;
         }
+
+        if (result.success) {
+            setIsSuccess(true);
+        } else {
+            setSubmitError(result.error);
+        }
+
+        setIsSubmitting(false);
     };
 
     return {
@@ -43,6 +48,6 @@ export function useRequestForm(roomId: string) {
         isSubmitting,
         submitError,
         isSuccess,
-        onSubmit: form.handleSubmit(onSubmit),
+        onSubmit: form.handleSubmit(handleSubmit),
     };
 }

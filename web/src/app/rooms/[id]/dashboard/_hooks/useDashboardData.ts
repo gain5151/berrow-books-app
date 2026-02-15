@@ -2,7 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { catchTrouble } from "@/lib/wrappClient/CatchTrouble";
 import { type BookRequest, type Room } from "../_consts";
+import { fetchDashboardData } from "../_actions/fetch-dashboard-data";
+import { updateRequestStatus } from "../_actions/update-request-status";
+import { sendReminder } from "../_actions/send-reminder";
 
 export function useDashboardData(roomId: string, session: any, status: string) {
     const router = useRouter();
@@ -12,30 +16,25 @@ export function useDashboardData(roomId: string, session: any, status: string) {
     const [error, setError] = useState("");
     const [updatingId, setUpdatingId] = useState<string | null>(null);
 
-    const fetchData = useCallback(async () => {
-        try {
-            const [requestsRes, roomsRes] = await Promise.all([
-                fetch(`/api/rooms/${roomId}/requests`),
-                fetch("/api/rooms"),
-            ]);
+    const _fetchData = useCallback(async () => {
+        const result = await catchTrouble(async () => {
+            return await fetchDashboardData(roomId);
+        });
 
-            if (requestsRes.ok) {
-                setRequests(await requestsRes.json());
-            } else {
-                const data = await requestsRes.json();
-                setError(data.error || "データの取得に失敗しました");
-            }
-
-            if (roomsRes.ok) {
-                const rooms = await roomsRes.json();
-                const currentRoom = rooms.find((r: Room) => r.id === roomId);
-                setRoom(currentRoom || null);
-            }
-        } catch {
+        if (!result) {
             setError("エラーが発生しました");
-        } finally {
             setIsLoading(false);
+            return;
         }
+
+        if (result.success) {
+            setRequests(result.requests);
+            setRoom(result.room);
+        } else {
+            setError(result.error);
+        }
+
+        setIsLoading(false);
     }, [roomId]);
 
     useEffect(() => {
@@ -46,63 +45,66 @@ export function useDashboardData(roomId: string, session: any, status: string) {
 
     useEffect(() => {
         if (session?.user) {
-            fetchData();
+            _fetchData();
         }
-    }, [session, roomId, fetchData]);
+    }, [session, roomId, _fetchData]);
 
-    const updateStatus = async (
+    const _executeUpdateStatus = async (
+        requestId: string,
+        newStatus: BookRequest["status"],
+        returnDue?: string
+    ) => {
+        return await catchTrouble(async () => {
+            return await updateRequestStatus(roomId, requestId, newStatus, returnDue);
+        });
+    };
+
+    const handleUpdateStatus = async (
         requestId: string,
         newStatus: BookRequest["status"],
         returnDue?: string
     ) => {
         setUpdatingId(requestId);
 
-        try {
-            const body: { status: string; returnDueDate?: string } = { status: newStatus };
-            if (returnDue) {
-                body.returnDueDate = returnDue;
-            }
+        const result = await _executeUpdateStatus(requestId, newStatus, returnDue);
 
-            const res = await fetch(`/api/rooms/${roomId}/requests/${requestId}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-            });
-
-            if (res.ok) {
-                await fetchData();
-                return { success: true };
-            } else {
-                const data = await res.json();
-                return { success: false, error: data.error || "更新に失敗しました" };
-            }
-        } catch {
-            return { success: false, error: "エラーが発生しました" };
-        } finally {
+        if (!result) {
             setUpdatingId(null);
+            return { success: false, error: "エラーが発生しました" };
         }
+
+        if (result.success) {
+            await _fetchData();
+        }
+
+        setUpdatingId(null);
+        return result;
     };
 
-    const sendReminder = async (requestId: string) => {
+    const _executeSendReminder = async (requestId: string) => {
+        return await catchTrouble(async () => {
+            return await sendReminder(roomId, requestId);
+        });
+    };
+
+    const handleSendReminder = async (requestId: string) => {
         if (!confirm("返却催促メールを送信しますか？")) return;
 
-        try {
-            const res = await fetch(`/api/rooms/${roomId}/requests/${requestId}`, {
-                method: "POST",
-            });
+        const result = await _executeSendReminder(requestId);
 
-            if (res.ok) {
-                alert("リマインダーを送信しました");
-            } else {
-                const data = await res.json();
-                alert(data.error || "送信に失敗しました");
-            }
-        } catch {
+        if (!result) {
             alert("エラーが発生しました");
+            return;
+        }
+
+        if (result.success) {
+            alert("リマインダーを送信しました");
+        } else {
+            alert(result.error);
         }
     };
 
-    const copyToken = () => {
+    const handleCopyToken = () => {
         if (room?.token) {
             navigator.clipboard.writeText(room.token);
             alert("トークンをコピーしました");
@@ -115,8 +117,8 @@ export function useDashboardData(roomId: string, session: any, status: string) {
         isLoading,
         error,
         updatingId,
-        updateStatus,
-        sendReminder,
-        copyToken,
+        updateStatus: handleUpdateStatus,
+        sendReminder: handleSendReminder,
+        copyToken: handleCopyToken,
     };
 }
