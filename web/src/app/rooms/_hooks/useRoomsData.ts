@@ -2,7 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { catchTrouble } from "@/lib/wrappClient/CatchTrouble";
 import { type Room } from "../_consts";
+import { fetchRooms } from "../_actions/fetch-rooms";
+import { addAdmin } from "../_actions/add-admin";
+import { removeAdmin } from "../_actions/remove-admin";
 
 export function useRoomsData(session: any, status: string) {
     const router = useRouter();
@@ -13,20 +17,24 @@ export function useRoomsData(session: any, status: string) {
     const [addingAdmin, setAddingAdmin] = useState(false);
     const [adminError, setAdminError] = useState("");
 
-    const fetchRooms = useCallback(async () => {
-        try {
-            const res = await fetch("/api/rooms");
-            if (res.ok) {
-                const data = await res.json();
-                setRooms(data);
-            } else {
-                setError("ルームの取得に失敗しました");
-            }
-        } catch {
+    const _fetchRooms = useCallback(async () => {
+        const result = await catchTrouble(async () => {
+            return await fetchRooms();
+        });
+
+        if (!result) {
             setError("エラーが発生しました");
-        } finally {
             setIsLoading(false);
+            return;
         }
+
+        if (result.success) {
+            setRooms(result.rooms);
+        } else {
+            setError(result.error);
+        }
+
+        setIsLoading(false);
     }, []);
 
     useEffect(() => {
@@ -37,9 +45,9 @@ export function useRoomsData(session: any, status: string) {
 
     useEffect(() => {
         if (session?.user) {
-            fetchRooms();
+            _fetchRooms();
         }
-    }, [session, fetchRooms]);
+    }, [session, _fetchRooms]);
 
     const handleAddAdmin = async (email: string) => {
         if (!selectedRoom) return { success: false, error: "ルームが選択されていません" };
@@ -47,48 +55,42 @@ export function useRoomsData(session: any, status: string) {
         setAddingAdmin(true);
         setAdminError("");
 
-        try {
-            const res = await fetch(`/api/rooms/${selectedRoom.id}/admins`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            });
+        const result = await catchTrouble(async () => {
+            return await addAdmin(selectedRoom.id, email);
+        });
 
-            if (res.ok) {
-                setSelectedRoom(null);
-                await fetchRooms();
-                return { success: true };
-            } else {
-                const data = await res.json();
-                const msg = data.error || "管理者の追加に失敗しました";
-                setAdminError(msg);
-                return { success: false, error: msg };
-            }
-        } catch {
+        if (!result) {
             const msg = "エラーが発生しました";
             setAdminError(msg);
-            return { success: false, error: msg };
-        } finally {
             setAddingAdmin(false);
+            return { success: false, error: msg };
+        }
+
+        if (result.success) {
+            setSelectedRoom(null);
+            await _fetchRooms();
+            setAddingAdmin(false);
+            return { success: true };
+        } else {
+            setAdminError(result.error);
+            setAddingAdmin(false);
+            return { success: false, error: result.error };
         }
     };
 
     const handleRemoveAdmin = async (roomId: string, adminId: string) => {
         if (!confirm("この管理者を削除しますか？")) return;
 
-        try {
-            const res = await fetch(`/api/rooms/${roomId}/admins?adminId=${adminId}`, {
-                method: "DELETE",
-            });
+        const result = await catchTrouble(async () => {
+            return await removeAdmin(roomId, adminId);
+        });
 
-            if (res.ok) {
-                await fetchRooms();
-            } else {
-                alert("削除に失敗しました");
-            }
-        } catch {
-            alert("エラーが発生しました");
+        if (!result || !result.success) {
+            alert("削除に失敗しました");
+            return;
         }
+
+        await _fetchRooms();
     };
 
     return {

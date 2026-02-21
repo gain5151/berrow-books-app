@@ -1,5 +1,5 @@
 import { BBAppLink } from "@/components/ui/BBAppLink";
-import { Input } from "@/components/ui/Input";
+import { BBAppInput } from "@/components/ui";
 import { UseFormReturn } from "react-hook-form";
 import { type RequestFormData } from "../_consts";
 
@@ -36,22 +36,22 @@ export function RequestForm({
 
                 <form onSubmit={onSubmit} noValidate>
                     <div className="mb-4">
-                        <Input
+                        <label htmlFor="title" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">書籍タイトル</label>
+                        <BBAppInput
                             name="title"
                             register={register}
                             error={errors.title}
-                            label="書籍タイトル"
                             type="text"
                             placeholder="例: リーダブルコード"
                         />
                     </div>
 
                     <div className="mb-6">
-                        <Input
+                        <label htmlFor="token" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">アクセストークン</label>
+                        <BBAppInput
                             name="token"
                             register={register}
                             error={errors.token}
-                            label="アクセストークン"
                             type="text"
                             placeholder="管理者から共有されたトークン"
                         />

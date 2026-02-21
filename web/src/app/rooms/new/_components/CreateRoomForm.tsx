@@ -1,5 +1,5 @@
 import { BBAppLink } from "@/components/ui/BBAppLink";
-import { Input } from "@/components/ui/Input";
+import { BBAppInput } from "@/components/ui";
 import { UseFormReturn } from "react-hook-form";
 import { type CreateRoomFormData } from "../_consts";
 
@@ -39,22 +39,22 @@ export function CreateRoomForm({
 
         <form onSubmit={onSubmit} noValidate>
           <div className="mb-4">
-            <Input
+            <label htmlFor="name" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">ルーム名</label>
+            <BBAppInput
               name="name"
               register={register}
               error={errors.name}
-              label="ルーム名"
               type="text"
               placeholder="例: 技術書レンタル"
             />
           </div>
 
           <div className="mb-6">
-            <Input
+            <label htmlFor="tokenExpiresAt" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">管理用トークンの有効期限</label>
+            <BBAppInput
               name="tokenExpiresAt"
               register={register}
               error={errors.tokenExpiresAt}
-              label="管理用トークンの有効期限"
               type="datetime-local"
             />
           </div>
